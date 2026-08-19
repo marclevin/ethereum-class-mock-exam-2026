@@ -155,10 +155,13 @@ For the mock, price 4 with a fee of 3000, which is 0.3 percent, swapping one who
 `currency0`:
 
 - The price alone suggests about 4 tokens back.
-- The fee takes 0.3 percent off the input, so about 3.988.
-- Your own trade moves the price against you as it executes, which takes a little more.
+- The fee takes 0.3 percent off, which leaves about 3.988.
+- Your own trade moves the price against you while it executes, which costs a little more.
 
-The exact figure depends on the range you chose. A wider range holds the price steadier and gets
+With a range twenty spacings either side of the live tick, the real answer is 3.987205 tokens. So
+the fee cost you about 0.012 of a token and your own price impact cost a further 0.0008.
+
+The exact figure depends on the range you chose. A wider range holds the price steadier and lands
 you closer to 3.988. A narrow one costs you more. That relationship, between the range you picked
 and the price you got, is the sort of thing the written section rewards.
 
