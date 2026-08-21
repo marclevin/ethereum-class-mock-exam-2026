@@ -6,23 +6,19 @@ import "./ExamBase.sol";
 
 // =============================================================================
 // TASK 2. Three things to fill in.
-// Opens your pool at the starting price on your sheet.
+// Opens your pool at the starting price on the parameter list.
+//
+// MOCK. The real exam names these variables differently and its event carries a
+// different set of fields. The ideas are the same, the text is not.
 // =============================================================================
 
 contract Task2Pool is ExamBase {
-    /// @notice The two starting prices from your parameter sheet.
-    uint160 public immutable sqrtPriceIfAlphaIsCurrency0;
-    uint160 public immutable sqrtPriceIfBetaIsCurrency0;
+    /// @notice The two starting prices from the parameter list.
+    /// @dev One for each way the pool might sort your two tokens.
+    uint160 public immutable sqrtPriceIfTokenALower;
+    uint160 public immutable sqrtPriceIfTokenBLower;
 
-    event PoolOpened(
-        bytes32 poolId,
-        address currency0,
-        address currency1,
-        uint24 fee,
-        int24 tickSpacing,
-        uint160 sqrtPriceX96,
-        int24 tick
-    );
+    event PoolReady(bytes32 poolId, address currency0, address currency1, uint160 sqrtPriceX96, int24 tick);
 
     constructor(
         address _poolManager,
@@ -30,23 +26,24 @@ contract Task2Pool is ExamBase {
         address _tokenB,
         uint24 _fee,
         int24 _tickSpacing,
-        uint160 _sqrtPriceIfAlphaIsCurrency0,
-        uint160 _sqrtPriceIfBetaIsCurrency0
+        uint160 _sqrtPriceIfTokenALower,
+        uint160 _sqrtPriceIfTokenBLower
     ) ExamBase(_poolManager, _tokenA, _tokenB, _fee, _tickSpacing) {
-        sqrtPriceIfAlphaIsCurrency0 = _sqrtPriceIfAlphaIsCurrency0;
-        sqrtPriceIfBetaIsCurrency0 = _sqrtPriceIfBetaIsCurrency0;
+        sqrtPriceIfTokenALower = _sqrtPriceIfTokenALower;
+        sqrtPriceIfTokenBLower = _sqrtPriceIfTokenBLower;
     }
 
     /// @notice The starting price that matches the way the pool actually sorted your tokens.
     function startingSqrtPriceX96() public view returns (uint160) {
         // TODO 2.1 --------------------------------------------------------
-        // Your sheet gave you two starting prices, because the pool sorts your two
-        // tokens by address and you do not get to choose which one becomes currency0.
+        // You were given two starting prices, because the pool sorts your two tokens
+        // by address and you do not get to choose which one becomes currency0.
         //
-        // alphaIsCurrency0() is already written for you. It returns true when your
-        // token A came out as currency0.
+        // The two immutables above are named after which token turned out to be the
+        // lower address. ExamBase already works that out for you: alphaIsCurrency0()
+        // returns true when your token A is the lower one.
         //
-        // Return whichever of the two prices above is the right one.
+        // Return whichever of the two prices belongs to the sort order you actually got.
         // Replace the line below.
 
         return 0; // <-- replace this
@@ -65,18 +62,21 @@ contract Task2Pool is ExamBase {
         //
         //     poolManager.initialize(key, startingPrice)
         //
-        // takes the pool key and the starting price, and returns the tick the pool
-        // opened at. Put that returned tick into the variable below.
+        // takes the pool key and the starting price, and hands back the tick the pool
+        // opened at. That returned tick belongs in the variable below.
         // Replace the line below.
 
         tick = 0; // <-- replace this
 
         // TODO 2.3 --------------------------------------------------------
-        // Announce it, so the marker can see what you did. Emit PoolOpened with
-        // these seven values, in this order:
+        // Announce it, so the marker can see what you did. Emit PoolReady. Look at
+        // its declaration near the top of this file for the fields it wants and the
+        // order they go in, then supply:
         //
-        //     poolId(), currency0(), currency1(), FEE, TICK_SPACING, startingPrice, tick
+        //     the pool id, the two currencies in protocol order, the price you
+        //     opened at, and the tick you just captured
         //
+        // ExamBase gives you poolId(), currency0() and currency1().
         // Write one emit statement below.
 
     }

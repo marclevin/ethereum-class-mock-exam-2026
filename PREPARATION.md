@@ -2,7 +2,7 @@
 
 ECO5037W Fintech and Cryptocurrencies, 2026.
 
-Read this once now, work through the mock, then read it again the day before.
+This is a mock exam to help you prepare for the real one.
 
 ---
 
@@ -13,7 +13,7 @@ Read this once now, work through the mock, then read it again the day before.
 | Length | Three hours |
 | Total | 100 marks |
 | Format | Practical, open book |
-| Where | In the venue, on your own laptop |
+| Where | Wherever, on your own laptop |
 | Tools | Remix in your browser |
 | What you write | Solidity, filling in gaps in code that is already written |
 | What you submit | Four Solidity files, one JSON file, one Markdown file |
@@ -29,31 +29,23 @@ Uniswap integration from scratch.
 
 ## Marks
 
-| Task | Marks | How it is marked |
-| --- | --- | --- |
-| 1. Mint your two tokens | 10 | Automatically |
-| 2. Open the pool | 20 | Automatically |
-| 3. Add liquidity | 20 | Automatically |
-| 4. Predict, then swap | 15 | Automatically |
-| 5. Report your results | 10 | Automatically |
-| 6. Written section | 25 | By hand |
-
-Seventy five of the hundred marks come from running your submitted code. **Code that does not
-compile scores zero on Tasks 1 to 5**, no matter how nearly right it looks, so leave time to press
-Compile once more before you submit.
+| Task                    | Marks |
+| ----------------------- | ----- |
+| 1. Mint your two tokens | 10    |
+| 2. Open the pool        | 20    |
+| 3. Add liquidity        | 20    |
+| 4. Predict, then swap   | 15    |
+| 5. Report your results  | 10    |
+| 6. Written section      | 25    |
+| *Total*                   | 100   |
 
 ---
 
 ## Where it runs
 
 **Remix, in your browser, is what we support.** Go to [remix.ethereum.org](https://remix.ethereum.org).
-Nothing is installed, nothing costs anything, and there is no test network. Remix gives you a
-sandbox with ten accounts holding fake ether, and a script in the repository puts Uniswap v4 into
-that sandbox for you.
 
-**Bring your own laptop.** Any machine that runs a current browser is fine. The work is light: the
-heavy Uniswap contracts arrive already compiled, so your browser only ever compiles the small
-amount of code you write.
+**Bring your own laptop.** Any machine that runs a current browser is fine. The work is light.
 
 **You may use your own local setup instead if you strongly prefer it**, but understand what that
 means. Every instruction in the exam paper describes Remix, and support on the day will be for
@@ -69,21 +61,16 @@ separate contract that you deploy once. Still, do not reload the page.
 ---
 
 ## You get your own parameter sheet
-
-Every student gets a printed sheet with their student number on it. It carries your token names and
+Every student gets a unique text file. It carries your token names and
 symbols, your fee tier, your tick spacing, your starting price, your liquidity amount and your swap
 amount. **Everyone gets different values.**
 
-That has three consequences worth taking seriously.
 
 1. A classmate's numbers will not work in your contracts, and yours will not work in theirs.
 2. Copy the numbers exactly, digit for digit. They are long because they are in the token's
    smallest unit. The single most common mistake last time was typing a short round number where a
    long one was required, which mints almost nothing and makes the next step fail.
-3. Keep the sheet safe during the exam and hand it back at the end.
 
-The starting price arrives on your sheet already worked out, as two long numbers. You are not asked
-to compute square roots.
 
 ---
 
@@ -131,32 +118,17 @@ yourself reading about those, you have gone past the edge of the exam.
 
 ## The written section, 25 marks
 
-Five questions, five marks each, **120 words maximum per answer**. Each is marked as nothing, half
-or full.
+Five questions, five marks each, **120 words maximum per answer**.
 
 Every question is about **your own run**: your parameters, your addresses, your numbers, your
 errors, your chosen range. A textbook description of how Uniswap works, however accurate, scores
 nothing. The marks are for statements that can be checked against the work you submitted.
 
-The questions cover ground like this:
-
-- Why your sheet gave you two starting prices, which one your pool used, and how you knew.
-- What output you predicted before swapping, how you arrived at it, and where the difference
-  between that and the real figure went.
-- The exact error you hit on a failed attempt at adding liquidity, and what caused it given your
-  tick spacing and your live tick.
-- The range you chose, and what would have happened if you had chosen one that misses the price.
-- What changes if a token uses 6 decimals instead of 18.
-
-**Practise while you do the mock.** Keep a note of what you predicted, what you got, and every
-error message you saw. Trying to reconstruct that at the end is much harder than writing it down as
-you go.
-
 ---
 
 ## How to use the mock
 
-The mock is the same four tasks with a fixed set of numbers that everyone shares. Work through
+The mock covers all six tasks, with one fixed set of numbers that everybody shares. Work through
 [README.md](README.md) in this repository.
 
 Do it at least twice. The second run should take well under an hour, and that is the point: on the
@@ -165,9 +137,31 @@ finding buttons.
 
 Between the two runs, break things deliberately. Give `addLiquidity` a tick that is not on the
 grid. Give it a range that misses the price. Try to swap before recording a prediction. Read the
-error each time and make sure you understand it. Those errors show up in the written section.
+error each time and make sure you understand it.
 
-A worked solution is published about a week after the mock. Get properly stuck first.
+Do not skip Tasks 5 and 6 because they are not code. They are 35 of the 100 marks, and the written
+section is where general knowledge gets you nothing and your own numbers get you everything.
+
+### The mock is not the exam paper
+
+The mock is a rehearsal, not a preview. The two papers ask for the same understanding, and they
+deliberately do not ask for it in the same words.
+
+Some of what differs between this mock and the exam:
+
+- the token contract has a different name, and so do several variables and events
+- the gaps are split up differently, so a check that is one line here may be two there
+- the fee, the tick spacing, the starting price, the supply and the swap amount are all different,
+  and yours will be different again from your neighbour's
+- the mock swaps currency1 into currency0, the exam may well go the other way
+- the five written questions are different questions
+
+What does not differ: the four tasks, the ideas being tested, `V4.sol`, `ERC20.sol`, `ExamBase.sol`,
+the setup script, and the way everything fits together.
+
+The practical consequence is simple. **Copying your mock answers into the exam will not work.**
+Knowing why each line is what it is will work perfectly. If you find yourself pasting rather than
+reading during your second run, slow down, because that is exactly the habit the exam catches.
 
 ---
 
@@ -178,16 +172,7 @@ A worked solution is published about a week after the mock. Get properly stuck f
 - Deploy at least one contract successfully.
 - Complete the mock end to end.
 - **If anything on that list fails, tell us before the day.** Setup problems are not what the exam
-  is testing, and there is no time to solve them in the room.
+  is testing, and there is no time to solve them on the day.
 
-## On the day
 
-- Bring your laptop, charged, and its charger.
-- Bring your parameter sheet.
-- Set the Environment to **Remix VM (Cancun)** before anything else.
-- Run the setup script first, and keep the three addresses it prints somewhere you can see.
-- Write down every address and number as you go. The paper tells you exactly when.
-- Do not reload the page.
-- Leave ten minutes at the end for the results file and a final compile.
-
-Good luck.
+Good luck - Marc :)

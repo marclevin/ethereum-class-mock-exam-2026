@@ -9,7 +9,10 @@ import "./ExamBase.sol";
 // Puts liquidity into the pool you opened in Task 2.
 //
 // This contract has to be holding your tokens before addLiquidity will work.
-// The exam instructions tell you when to send them across.
+// The instructions tell you when to send them across.
+//
+// MOCK. The real exam splits its checks up differently and its event has a
+// different name. Read what each gap asks for rather than recalling this one.
 // =============================================================================
 
 contract Task3Liquidity is ExamBase {
@@ -17,7 +20,7 @@ contract Task3Liquidity is ExamBase {
 
     IPoolModifyLiquidityTest public immutable liquidityRouter;
 
-    event LiquidityAdded(
+    event LiquidityProvided(
         bytes32 poolId, int24 tickLower, int24 tickUpper, int256 liquidityDelta, int256 amount0, int256 amount1
     );
 
@@ -46,26 +49,32 @@ contract Task3Liquidity is ExamBase {
         require(liquidityDelta > 0, "liquidity must be greater than zero");
         require(tickLower < tickUpper, "tickLower must be below tickUpper");
 
-        int24 liveTick = currentTick();
+        int24 tickNow = currentTick();
 
         // TODO 3.1 --------------------------------------------------------
-        // Both ticks have to sit on this pool's tick grid. The grid steps in units
-        // of TICK_SPACING, so a tick is on the grid when dividing it by TICK_SPACING
+        // Both ticks have to sit on this pool's tick grid. The grid steps in units of
+        // TICK_SPACING, so a tick is on the grid when dividing it by TICK_SPACING
         // leaves no remainder. The remainder operator in Solidity is %.
         //
-        // Replace the two conditions marked below.
-
-        require(true /* replace: tickLower is on the grid */, "tickLower is not a multiple of the tick spacing");
-        require(true /* replace: tickUpper is on the grid */, "tickUpper is not a multiple of the tick spacing");
-
-        // TODO 3.2 --------------------------------------------------------
-        // Liquidity is only active while the price sits inside your range. So the
-        // range has to contain the live tick: liveTick must be at or above tickLower,
-        // and strictly below tickUpper.
+        // One require, one condition, covering both ticks at once. Join the two
+        // halves with &&.
         //
         // Replace the condition marked below.
 
-        require(true /* replace: the range contains liveTick */, "your range does not contain the live tick");
+        require(true /* replace: both ticks are on the grid */, "a tick is not a multiple of the tick spacing");
+
+        // TODO 3.2 --------------------------------------------------------
+        // Liquidity only earns while the price sits inside your range, so the range
+        // has to contain the live tick. That splits into two separate rules, and
+        // each one gets its own require so the message tells you which end is wrong:
+        //
+        //     tickNow must be at or above tickLower
+        //     tickNow must be strictly below tickUpper
+        //
+        // Replace the two conditions marked below.
+
+        require(true /* replace: tickNow is not below tickLower */, "the live tick is below your range");
+        require(true /* replace: tickNow is strictly below tickUpper */, "the live tick is at or above your range");
 
         // TODO 3.3 --------------------------------------------------------
         // Ask the router to add the liquidity. The call looks like this:
@@ -89,6 +98,6 @@ contract Task3Liquidity is ExamBase {
         // this contract and went into the pool.
         amount0 = delta.amount0();
         amount1 = delta.amount1();
-        emit LiquidityAdded(poolId(), tickLower, tickUpper, liquidityDelta, amount0, amount1);
+        emit LiquidityProvided(poolId(), tickLower, tickUpper, liquidityDelta, amount0, amount1);
     }
 }

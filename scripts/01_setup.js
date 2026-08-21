@@ -80,8 +80,10 @@ async function deploy(name, signer, args) {
     console.log(`  Liquidity router ${liquidityRouter.address}`);
     console.log(`  Swap router      ${swapRouter.address}`);
     console.log("");
-    console.log("You pass these to your ExamPool constructor, in this order:");
-    console.log("  poolManager, liquidityRouter, swapRouter, tokenA, tokenB");
+    console.log("Which task needs which:");
+    console.log("  Task2Pool        pool manager");
+    console.log("  Task3Liquidity   pool manager, liquidity router");
+    console.log("  Task4Swap        pool manager, swap router");
     console.log("=================================================================");
   } catch (error) {
     console.error("Setup failed.");

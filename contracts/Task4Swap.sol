@@ -9,6 +9,9 @@ import "./ExamBase.sol";
 // Trades against the pool you filled in Task 3.
 //
 // This contract also has to be holding your tokens before the swap will work.
+//
+// MOCK. The real exam stores the prediction under different names and emits
+// different events. The four ideas below are the ones that carry across.
 // =============================================================================
 
 contract Task4Swap is ExamBase {
@@ -16,11 +19,11 @@ contract Task4Swap is ExamBase {
 
     IPoolSwapTest public immutable swapRouter;
 
-    uint256 public predictedAmountOut;
-    bool public predictionRecorded;
+    uint256 public expectedAmountOut;
+    bool public predictionLocked;
 
-    event PredictionRecorded(uint256 expectedAmountOut);
-    event SwapExecuted(bytes32 poolId, bool zeroForOne, uint256 amountIn, int256 amount0, int256 amount1);
+    event PredictionLogged(uint256 expectedAmountOut);
+    event SwapCompleted(bytes32 poolId, bool zeroForOne, uint256 amountIn, int256 amount0, int256 amount1);
 
     constructor(
         address _poolManager,
@@ -39,15 +42,15 @@ contract Task4Swap is ExamBase {
     }
 
     /// @notice Commit to the output you expect, before you find out what it really is.
-    function recordPrediction(uint256 expectedAmountOut) external {
-        require(!predictionRecorded, "you have already recorded a prediction, it cannot be changed");
-        require(expectedAmountOut > 0, "your prediction must be greater than zero");
+    function recordPrediction(uint256 amountOutYouExpect) external {
+        require(!predictionLocked, "you have already recorded a prediction, it cannot be changed");
+        require(amountOutYouExpect > 0, "your prediction must be greater than zero");
 
         // TODO 4.1 --------------------------------------------------------
-        // Three lines:
-        //   store expectedAmountOut in predictedAmountOut
-        //   set predictionRecorded to true
-        //   emit PredictionRecorded with the value
+        // Three lines, using the two storage variables and the event declared above:
+        //   store amountOutYouExpect
+        //   lock the prediction so it cannot be recorded twice
+        //   emit the event with the value
 
     }
 
@@ -57,10 +60,10 @@ contract Task4Swap is ExamBase {
         require(amountIn > 0, "amountIn must be greater than zero");
 
         // TODO 4.2 --------------------------------------------------------
-        // This swap must not run until a prediction has been recorded. There is a
-        // predictionRecorded flag just above. Replace the condition marked below.
+        // This swap must not run until a prediction has been locked in. The flag you
+        // set in TODO 4.1 is the one to test. Replace the condition marked below.
 
-        require(true /* replace: a prediction has been recorded */, "record your prediction before you swap");
+        require(true /* replace: a prediction has been locked in */, "record your prediction before you swap");
 
         // TODO 4.3 --------------------------------------------------------
         // In Uniswap v4, the sign of amountSpecified says which kind of swap you want.
@@ -102,6 +105,6 @@ contract Task4Swap is ExamBase {
         // positive, the token you received.
         amount0 = delta.amount0();
         amount1 = delta.amount1();
-        emit SwapExecuted(poolId(), zeroForOne, amountIn, amount0, amount1);
+        emit SwapCompleted(poolId(), zeroForOne, amountIn, amount0, amount1);
     }
 }
