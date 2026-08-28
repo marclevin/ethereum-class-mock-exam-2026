@@ -2,13 +2,6 @@
 
 Answer all five questions. **Maximum 120 words each.**
 
-These are not the exam questions. They are the same kind of question: every one is about your own
-run, and a correct general description of how Uniswap works scores nothing on any of them. Full
-marks need specifics, your addresses, your numbers, your error messages, your range.
-
-Nothing here is marked. Write the answers out properly anyway, in full sentences, inside the word
-limit. Then read the checklist at the bottom and mark yourself honestly.
-
 ---
 
 ## Question 1 (5 marks)
@@ -64,16 +57,3 @@ out at roughly plus or minus 27727.
 **Answer:**
 
 ---
-
-## Mark yourself
-
-An answer that would score well does all of these. Check each one against what you wrote.
-
-- [ ] It contains at least one number, address or error message copied from your own run.
-- [ ] Every claim in it could be checked against your `results.json` and your contracts.
-- [ ] It answers the question that was asked, not the neighbouring question you would rather answer.
-- [ ] It is inside 120 words.
-- [ ] Nothing in it would be equally true for a classmate with different parameters.
-
-That last one is the test that matters. If your answer would read identically on someone else's
-paper, it is a textbook answer and it is worth nothing.

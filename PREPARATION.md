@@ -2,8 +2,6 @@
 
 ECO5037W Fintech and Cryptocurrencies, 2026.
 
-This is a mock exam to help you prepare for the real one.
-
 ---
 
 ## The exam at a glance
@@ -22,8 +20,7 @@ You will mint two reward tokens, open a Uniswap v4 pool at a given price, add li
 trade against it. Four tasks, one contract each.
 
 **The code is mostly written for you.** Each contract has gaps marked `TODO`, with a hint next to
-every one. There are eleven gaps in total and most are a single line. You are not asked to write a
-Uniswap integration from scratch.
+every one.
 
 ---
 
@@ -43,9 +40,9 @@ Uniswap integration from scratch.
 
 ## Where it runs
 
-**Remix, in your browser, is what we support.** Go to [remix.ethereum.org](https://remix.ethereum.org).
+**Remix, in your browser** Go to [remix.ethereum.org](https://remix.ethereum.org).
 
-**Bring your own laptop.** Any machine that runs a current browser is fine. The work is light.
+**Use your own laptop.** Any machine that runs a current browser is fine. The work is light.
 
 **You may use your own local setup instead if you strongly prefer it**, but understand what that
 means. Every instruction in the exam paper describes Remix, and support on the day will be for
@@ -86,16 +83,15 @@ amount. **Everyone gets different values.**
 ### The core of this exam
 
 - **What identifies a pool.** Four things: the two currencies in sorted order, the fee, the tick
-  spacing, and the hooks address. Change any one and you are talking about a different pool. This
-  is why Tasks 2, 3 and 4 must all be given the same fee and tick spacing.
+  spacing, and the hooks address. (Hooks are not examined)
 - **Currency sorting.** The pool always calls the lower token address `currency0` and the higher
   one `currency1`. You do not choose. You find out only after your tokens are deployed, which is
-  why your sheet gives you two starting prices instead of one.
+  why your sheet gives you two starting prices instead of one. Understand this sorting and how it affects the starting price you use.
 - **Ticks.** A tick is a price point, `price = 1.0001 ** tick`. Ticks can be negative, and often
-  are. Any tick holding liquidity must be an exact multiple of the pool's tick spacing.
+  are. Any tick holding liquidity must be an exact multiple of the pool's tick spacing. Understand tick spacing and how it affects the ticks you can use, and how to calculate the tick for a given price. (The exam does not ask you to calculate a tick from a price, but you should understand the relationship.)
 - **Concentrated liquidity.** Your liquidity is only active between the two ticks you choose. If
   the current price sits outside your range, your position does nothing and the pool takes only one
-  of your two tokens.
+  of your two tokens. (Understand why that is, and which token it takes.)
 - **`sqrtPriceX96`.** How the protocol stores price: the square root of the price, scaled by two to
   the power of ninety six. You should know what it is and why the square root is there. You will
   not have to calculate one.
@@ -141,27 +137,6 @@ error each time and make sure you understand it.
 
 Do not skip Tasks 5 and 6 because they are not code. They are 35 of the 100 marks, and the written
 section is where general knowledge gets you nothing and your own numbers get you everything.
-
-### The mock is not the exam paper
-
-The mock is a rehearsal, not a preview. The two papers ask for the same understanding, and they
-deliberately do not ask for it in the same words.
-
-Some of what differs between this mock and the exam:
-
-- the token contract has a different name, and so do several variables and events
-- the gaps are split up differently, so a check that is one line here may be two there
-- the fee, the tick spacing, the starting price, the supply and the swap amount are all different,
-  and yours will be different again from your neighbour's
-- the mock swaps currency1 into currency0, the exam may well go the other way
-- the five written questions are different questions
-
-What does not differ: the four tasks, the ideas being tested, `V4.sol`, `ERC20.sol`, `ExamBase.sol`,
-the setup script, and the way everything fits together.
-
-The practical consequence is simple. **Copying your mock answers into the exam will not work.**
-Knowing why each line is what it is will work perfectly. If you find yourself pasting rather than
-reading during your second run, slow down, because that is exactly the habit the exam catches.
 
 ---
 

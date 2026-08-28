@@ -2,9 +2,6 @@
 
 ECO5037W Fintech and Cryptocurrencies.
 
-**Three hours. 100 marks. Open book.** That is the real exam. This is the rehearsal for it, and
-nothing here is marked.
-
 You will mint two reward tokens, open a Uniswap v4 pool at a set price, put liquidity into it, and
 trade against it.
 
@@ -18,8 +15,6 @@ study. This file is the practice run itself.
 
 ## Rules
 
-There are none. Nothing here is marked, so use anything you like and ask anyone you like.
-
 The one rule worth imposing on yourself is this: **do it once without looking at the answer.** A
 worked solution lives on the `solution` branch of this repository. Reading it feels like learning
 and mostly is not. The exam asks you to explain your own choices, and you cannot explain a choice
@@ -28,12 +23,6 @@ you did not make.
 Do it twice if you have time. The second run should take well under an hour, and that is the
 point: on the day you want the mechanics to be automatic so your three hours go on thinking rather
 than on finding buttons.
-
-**This mock is deliberately not a copy of the exam paper.** Same six tasks, same ideas, same shape,
-but the token contract is called something else, the variables and events are named differently,
-the checks are split up differently, the numbers are different and the swap goes the other way.
-Answers memorised from here will not paste into the exam. Understanding from here will carry across
-completely.
 
 ---
 
@@ -113,16 +102,6 @@ whole tokens.
   Direction             currency1 into currency0
                         so zeroForOne is false
 ```
-
-The two long price numbers are worth a look. The starting price is 16, and the square root of 16 is
-4, so the first number is exactly four times two to the power of ninety six. The second is the same
-thing for a price of one sixteenth, so it is a quarter of two to the power of ninety six. In the
-real exam your ratio will not be a perfect square, the numbers will not be as tidy, and they arrive
-already calculated. You are never asked to compute a square root.
-
-The fee here is 10000, which is one percent. That is a fat fee by Uniswap standards and it is
-deliberate: it makes the gap between what you predict and what you get big enough to see clearly in
-Task 4. Your exam fee will probably be smaller.
 
 ---
 
@@ -362,11 +341,6 @@ Answer all five questions in `ANSWERS.md`. **120 words each, maximum.** Each is 
 Full marks need specifics from your own work: your numbers, your addresses, your error messages,
 your range.
 
-The exam asks five questions of this kind. They are not these five questions, but they are the same
-sort of question, and a correct general description of how Uniswap works scores nothing on any of
-them. Write real answers, in full sentences, inside the word limit. Getting a specific, checkable
-claim into 120 words is a skill, and it is quicker to learn it now than on the day.
-
 ---
 
 ## Submitting
@@ -391,9 +365,7 @@ them, and do not submit the whole workspace as a zip.
 Before you submit, press **Compile** one last time and check there are no red errors. Files that do
 not compile score zero on Tasks 1 to 5, whatever is written in them.
 
-Once you have all files downloaded and checked, create a zip file called `STUDENTNUMBER.zip` and submit it to Amathuba to the exam assignment. Do not submit anything else. Do not submit a folder, only a zip file.
-
-Time yourself doing that. It should take about three minutes.
+Once you have all files downloaded and checked, create a zip file called `STUDENTNUMBER.zip`. On the day, you will upload this to Amathuba.
 
 ---
 
@@ -432,7 +404,7 @@ should be enforcing. Fill in the three addresses at the top, right click the fil
 The exam has one of these too. It is not a mark predictor.
 
 **The worked solution.** On the `solution` branch of this repository, in `SOLUTION.md` and the
-contracts beside it. Get properly stuck first.
+contracts beside it.
 
 **If something breaks.** Ask rather than spending twenty minutes on it. On the day, ask the
-invigilator. Setup problems are not what is being examined here.
+invigilator.
