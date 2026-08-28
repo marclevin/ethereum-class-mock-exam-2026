@@ -7,18 +7,10 @@ import "./ExamBase.sol";
 // Mock exam solution. Task 2, with TODO 2.1, 2.2 and 2.3 filled in.
 
 contract Task2Pool is ExamBase {
-    uint160 public immutable sqrtPriceIfAlphaIsCurrency0;
-    uint160 public immutable sqrtPriceIfBetaIsCurrency0;
+    uint160 public immutable sqrtPriceIfTokenALower;
+    uint160 public immutable sqrtPriceIfTokenBLower;
 
-    event PoolOpened(
-        bytes32 poolId,
-        address currency0,
-        address currency1,
-        uint24 fee,
-        int24 tickSpacing,
-        uint160 sqrtPriceX96,
-        int24 tick
-    );
+    event PoolReady(bytes32 poolId, address currency0, address currency1, uint160 sqrtPriceX96, int24 tick);
 
     constructor(
         address _poolManager,
@@ -26,16 +18,16 @@ contract Task2Pool is ExamBase {
         address _tokenB,
         uint24 _fee,
         int24 _tickSpacing,
-        uint160 _sqrtPriceIfAlphaIsCurrency0,
-        uint160 _sqrtPriceIfBetaIsCurrency0
+        uint160 _sqrtPriceIfTokenALower,
+        uint160 _sqrtPriceIfTokenBLower
     ) ExamBase(_poolManager, _tokenA, _tokenB, _fee, _tickSpacing) {
-        sqrtPriceIfAlphaIsCurrency0 = _sqrtPriceIfAlphaIsCurrency0;
-        sqrtPriceIfBetaIsCurrency0 = _sqrtPriceIfBetaIsCurrency0;
+        sqrtPriceIfTokenALower = _sqrtPriceIfTokenALower;
+        sqrtPriceIfTokenBLower = _sqrtPriceIfTokenBLower;
     }
 
     function startingSqrtPriceX96() public view returns (uint160) {
         // TODO 2.1
-        return alphaIsCurrency0() ? sqrtPriceIfAlphaIsCurrency0 : sqrtPriceIfBetaIsCurrency0;
+        return alphaIsCurrency0() ? sqrtPriceIfTokenALower : sqrtPriceIfTokenBLower;
     }
 
     function openPool() external returns (int24 tick) {
@@ -49,6 +41,6 @@ contract Task2Pool is ExamBase {
         tick = poolManager.initialize(key, startingPrice);
 
         // TODO 2.3
-        emit PoolOpened(poolId(), currency0(), currency1(), FEE, TICK_SPACING, startingPrice, tick);
+        emit PoolReady(poolId(), currency0(), currency1(), startingPrice, tick);
     }
 }

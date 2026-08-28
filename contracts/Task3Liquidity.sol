@@ -11,7 +11,7 @@ contract Task3Liquidity is ExamBase {
 
     IPoolModifyLiquidityTest public immutable liquidityRouter;
 
-    event LiquidityAdded(
+    event LiquidityProvided(
         bytes32 poolId, int24 tickLower, int24 tickUpper, int256 liquidityDelta, int256 amount0, int256 amount1
     );
 
@@ -24,6 +24,7 @@ contract Task3Liquidity is ExamBase {
         int24 _tickSpacing
     ) ExamBase(_poolManager, _tokenA, _tokenB, _fee, _tickSpacing) {
         liquidityRouter = IPoolModifyLiquidityTest(_liquidityRouter);
+
         IERC20(_tokenA).approve(_liquidityRouter, type(uint256).max);
         IERC20(_tokenB).approve(_liquidityRouter, type(uint256).max);
     }
@@ -36,14 +37,17 @@ contract Task3Liquidity is ExamBase {
         require(liquidityDelta > 0, "liquidity must be greater than zero");
         require(tickLower < tickUpper, "tickLower must be below tickUpper");
 
-        int24 liveTick = currentTick();
+        int24 tickNow = currentTick();
 
         // TODO 3.1
-        require(tickLower % TICK_SPACING == 0, "tickLower is not a multiple of the tick spacing");
-        require(tickUpper % TICK_SPACING == 0, "tickUpper is not a multiple of the tick spacing");
+        require(
+            tickLower % TICK_SPACING == 0 && tickUpper % TICK_SPACING == 0,
+            "a tick is not a multiple of the tick spacing"
+        );
 
         // TODO 3.2
-        require(liveTick >= tickLower && liveTick < tickUpper, "your range does not contain the live tick");
+        require(tickNow >= tickLower, "the live tick is below your range");
+        require(tickNow < tickUpper, "the live tick is at or above your range");
 
         // TODO 3.3
         BalanceDelta delta = liquidityRouter.modifyLiquidity(
@@ -59,6 +63,6 @@ contract Task3Liquidity is ExamBase {
 
         amount0 = delta.amount0();
         amount1 = delta.amount1();
-        emit LiquidityAdded(poolId(), tickLower, tickUpper, liquidityDelta, amount0, amount1);
+        emit LiquidityProvided(poolId(), tickLower, tickUpper, liquidityDelta, amount0, amount1);
     }
 }

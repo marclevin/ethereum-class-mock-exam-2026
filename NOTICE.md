@@ -18,5 +18,5 @@ Uniswap is not affiliated with this course and does not endorse it.
 
 ## Token names
 
-The token names and symbols on your parameter sheet are invented for teaching purposes. They do not
+The token names and symbols used in this mock are invented for teaching purposes. They do not
 refer to any real reward programme, company or product.
