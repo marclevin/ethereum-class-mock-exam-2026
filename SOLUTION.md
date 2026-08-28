@@ -21,10 +21,6 @@ _mint(issuer, startingSupply_);
 `issuer` was set to `msg.sender` on the line above, so the whole supply lands with whoever sent the
 deployment transaction, which is you.
 
-The trap here is not the code, it is the number. `startingSupply_` is in the token's smallest unit.
-With 18 decimals, `2000000000000000000000000` is two million tokens, and `2000000` is two
-millionths of one. Type the short number and everything downstream fails, usually at the first
-`transfer`, with a message about your balance being too small.
 
 ---
 
@@ -70,8 +66,7 @@ emit PoolReady(poolId(), currency0(), currency1(), startingPrice, tick);
 ```
 
 Events are the record of what happened. Note that this event does not carry the fee or the tick
-spacing, so read the declaration rather than assuming the field list. The exam's event has a
-different name and a different set of fields, and it is checked against its own declaration.
+spacing, so read the declaration rather than assuming the field list.
 
 ---
 
@@ -220,9 +215,6 @@ change your answer**. Range width decides how many tokens you had to deposit, no
 paid out. It would matter if your range were tight enough for the swap to push the price out of it,
 and then it would matter enormously.
 
-That distinction, between the fee and the price impact and what each one depends on, is the sort of
-thing the written section rewards.
-
 ---
 
 ## Tasks 5 and 6
@@ -230,7 +222,7 @@ thing the written section rewards.
 There is no worked answer for these two, because the answers are your own numbers.
 
 For `results.json`, the only skill is care. Copy every digit, keep the minus signs, and leave the
-long numbers as text inside quotes. Ten marks for careful copying is ten marks a lot of people drop.
+long numbers as text inside quotes.
 
 For `ANSWERS.md`, the test is whether your answer could be true of anyone else's paper. If it
 could, it is a textbook answer and it is worth nothing. Quote your own tick, your own addresses,
